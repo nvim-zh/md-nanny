@@ -26,8 +26,8 @@ require('md-nanny')
 
 
 ## Todo
-  1. [  ] add todo list
-  2. [  ] codeblock border
-  3. [  ] codeblock edit
-  4. [  ] the flow chart
-  5. [  ] The code block programming
+  - [ ] add todo list
+  - [ ] codeblock border
+  - [ ] codeblock edit
+  - [ ] the flow chart
+  - [ ] The code block programming
