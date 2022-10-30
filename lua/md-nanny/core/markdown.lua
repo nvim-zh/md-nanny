@@ -117,4 +117,5 @@ M.GetCodeBookScope = function(line)
   end
   return nil
 end
+
 return M
