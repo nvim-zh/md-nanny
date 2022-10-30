@@ -1,5 +1,5 @@
 # md-nanny
-> Strengthen the markdown in neovim experience
+> Strengthen the markdown in neovim
 ## install
 ### Using a plugin manager
 
