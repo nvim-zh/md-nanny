@@ -3,6 +3,9 @@ local fn = vim.fn
 --- return: query scope
 
 function M.create_query_scope(bufnr)
+  --{{{
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  --}}}
   local bufwin = fn.bufwinnr(bufnr) -- cur win
   local cur_line = fn.line('.', fn.win_getid(bufwin)) -- cur pos
   local value_range = fn.winheight(bufwin)

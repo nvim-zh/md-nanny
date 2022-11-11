@@ -3,14 +3,13 @@ local tools = require('md-nanny.utils.query')
 local config = require('md-nanny.core.config')
 local highlight = require('md-nanny.core.highlight')
 local ns_id = vim.api.nvim_create_namespace('md_title')
-local filetype = 'markdown'
 --local q = require("vim.treesitter.query")
 
 local M = {}
 -- syntax title
 function M.syntax_title(bufnr)
   local start_line, end_line = tools.create_query_scope(bufnr)
-  local titles = require("md-nanny.treesitter_utils.title_query").get_title_nodes_pos(bufnr, filetype, start_line,
+  local titles = require("md-nanny.treesitter_utils.title_query").get_title_nodes_pos(bufnr, start_line,
     end_line)
   for _, title in pairs(titles) do
     local s_row, s_col = title.scope:start()

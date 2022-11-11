@@ -1,10 +1,16 @@
 local M = {}
+local filetype = require('md-nanny.core.config').filetype
 
-function M.get_title_nodes_pos(bufnr, lang, start_line, end_line)
-  local language_tree = vim.treesitter.get_parser(bufnr, lang)
+--- 获取标题的节点
+---@param bufnr
+---@param start_line
+---@param end_line
+---@return
+function M.get_title_nodes_pos(bufnr, start_line, end_line)
+  local language_tree = vim.treesitter.get_parser(bufnr, filetype)
   local syntax_tree = language_tree:parse()
   local root = syntax_tree[1]:root()
-  local query = vim.treesitter.parse_query(lang, [[
+  local query = vim.treesitter.parse_query(filetype, [[
     (
     (atx_heading) @heading (#match? @heading "^\#.+$")
     )

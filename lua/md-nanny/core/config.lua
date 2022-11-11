@@ -1,8 +1,29 @@
 local M = {}
 local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
--- title
+M.filetype = 'markdown'
+
+-- 代码块配置
+M.codeblock = {
+  symbol = {
+    enable = true,
+    start = "━",
+    end_ = "━",
+    bg = '#16161E',
+    fg = '#64607A'
+  },
+  code_block = {
+    enable = true,
+    bg = '#0B0C17',
+  },
+  highlight = {
+    symbol = 'codeblock_symbol',
+    code_block = 'codeblock'
+  }
+}
+
+-- 标题配置
 M.title = {
-  open = true,
+  enable = true,
   atx_h1_marker = {
     fg = '#343A4B',
     bg = bg,
