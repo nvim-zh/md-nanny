@@ -21,6 +21,21 @@ M.codeblock = {
   }
 }
 
+-- link 参数渲染
+M.link = {
+  fg = "#16161E",
+  bg = bg,
+  symbol = ''
+}
+
+-- todo list
+M.todolist = {
+  fg = '',
+  bg = bg,
+  symbol = {
+  }
+}
+
 -- 标题配置
 M.title = {
   enable = true,
