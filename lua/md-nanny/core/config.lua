@@ -6,14 +6,14 @@ M.filetype = 'markdown'
 M.codeblock = {
   symbol = {
     enable = true,
-    start = '━',
-    end_ = '━',
-    bg = '#0B0C17',
+    start = '>',
+    end_ = '<',
+    bg = '#111019',
     fg = '#64607A'
   },
   code_block = {
     enable = true,
-    bg = '#0B0C17',
+    bg = '#111019',
   },
   highlight = {
     symbol = 'codeblock_symbol',

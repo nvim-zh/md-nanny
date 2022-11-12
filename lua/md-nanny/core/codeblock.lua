@@ -43,7 +43,7 @@ function M.syntax_code_block_symbol(bufnr, node)
   api.nvim_buf_set_extmark(bufnr, ns_id, start_row, start_col, opts)
 
   -- end line
-  opts.virt_text = { { symbol, hl.highlight.symbol } }
+  opts.virt_text = { { hl.symbol.end_ .. " " .. symbol, hl.highlight.symbol } }
   api.nvim_buf_set_extmark(bufnr, ns_id, end_row - 1, end_col, opts)
 end
 
@@ -75,8 +75,7 @@ end
 
 -- 运行当前代码块
 ---@param bufnr
----@param start_line
----@param end_line
+---@param node
 function M.run_current_code_block(bufnr, node)
 end
 
