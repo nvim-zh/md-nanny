@@ -30,7 +30,6 @@ function M.get_code_book_scope(bufnr, start_line, end_line)
     table.insert(code_blocks, n_root)
   end
   return code_blocks
-
 end
 
 return M

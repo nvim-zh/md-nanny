@@ -4,7 +4,7 @@ local tools = require('md-nanny.utils.query')
 local mdorg = require('md-nanny.core.mdorg')
 local config = require('md-nanny.core.config')
 local highlight = require('md-nanny.core.highlight')
-local code_block_walk = require('md-nanny.walk.codeblock_walk')
+local fn = vim.fn
 local api = vim.api
 local ns_id = vim.api.nvim_create_namespace('md-codeblaock')
 
@@ -16,29 +16,34 @@ function M.syntax_code_block(bufnr)
   local start_line, end_line = tools.create_query_scope(bufnr)
   local code_blocks = code_block_query.get_code_book_scope(bufnr, start_line, end_line)
   for _, code_block in pairs(code_blocks) do
-    M.syntax_code_block_symbol(bufnr, code_block, config.codeblock)
+    M.syntax_code_block_symbol(bufnr, code_block)
+    M.syntax_code_block_background(bufnr, code_block)
   end
 end
 
---- 设置代码块背景色
+--- 设置代码块符号
 ---@param bufnr
 ---@param node
-function M.syntax_code_block_symbol(bufnr, node, h)
+function M.syntax_code_block_symbol(bufnr, node)
+  local hl = config.codeblock
   local start_row, start_col = node:start()
   local end_row, end_col = node:end_()
+  -- symbol line
+  local symbol = string.rep(' ', string.len(fn.getline(start_row + 1)))
+
+  -- otps
+  local lang = q.get_node_text(node:child(1), bufnr)
+
   local opts = {
-    virt_text = { { h.symbol.start, h.highlight.symbol } },
+    virt_text = { { hl.symbol.start .. " " .. lang .. symbol, hl.highlight.symbol } },
     virt_text_pos = 'overlay'
   }
-  -- symbol line
-  local symbol_line = code_block_walk.get_max_line(bufnr, node)
-  vim.notify(symbol_line)
 
   -- start line
   api.nvim_buf_set_extmark(bufnr, ns_id, start_row, start_col, opts)
 
   -- end line
-  opts.virt_text = { { h.symbol.end_, h.highlight.symbol } }
+  opts.virt_text = { { symbol, hl.highlight.symbol } }
   api.nvim_buf_set_extmark(bufnr, ns_id, end_row - 1, end_col, opts)
 end
 
@@ -46,13 +51,24 @@ end
 ---@param bufnr
 ---@param node
 function M.syntax_code_block_background(bufnr, node)
-  vim.notify(bufnr .. node)
+  local hl = config.codeblock
+  local start_row = node:start()
+  local end_row = node:end_()
+  local text = string.rep(' ', fn.winwidth(fn.bufwinnr(bufnr)))
+  local opts = {
+    virt_text = { { text, hl.highlight.code_block } },
+    hl_eol = true,
+    virt_text_pos = 'overlay',
+  }
+  for i = start_row, end_row - 1 do
+    api.nvim_buf_add_highlight(bufnr, ns_id, hl.highlight.code_block, i, 0, -1)
+    api.nvim_buf_set_extmark(bufnr, ns_id, i, fn.len(fn.getline(i + 1)), opts)
+  end
 end
 
 --- 快速编辑当前代码块
 ---@param bufnr
----@param start_line
----@param end_line
+---@param node
 function M.edit_current_code_block(bufnr, node)
   mdorg.EditBufferCodeBlock()
 end

@@ -1,4 +1,5 @@
 local q = require('vim.treesitter.query')
+local config = require('md-nanny.core.config')
 local fn = vim.fn
 local M = {}
 

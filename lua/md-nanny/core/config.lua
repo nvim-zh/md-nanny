@@ -6,9 +6,9 @@ M.filetype = 'markdown'
 M.codeblock = {
   symbol = {
     enable = true,
-    start = "━",
-    end_ = "━",
-    bg = '#16161E',
+    start = '━',
+    end_ = '━',
+    bg = '#0B0C17',
     fg = '#64607A'
   },
   code_block = {
