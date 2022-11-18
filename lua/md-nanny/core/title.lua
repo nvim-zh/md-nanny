@@ -29,7 +29,6 @@ end
 
 --- start title syntax
 function M.start(v)
-  vim.notify("title")
   if v then
     api.nvim_create_autocmd({ 'WinEnter', 'TextChanged', 'TextChangedI' }, {
       callback = function(opts)

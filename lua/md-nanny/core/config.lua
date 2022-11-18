@@ -30,9 +30,17 @@ M.link = {
 
 -- todo list
 M.todolist = {
-  fg = '',
-  bg = bg,
-  symbol = {
+  Undone = {
+    match = '[=]',
+    symbol = '□',
+    fg = '#1AE51A',
+    bg = '#0D0F18'
+  },
+  done = {
+    match = '[x]',
+    symbol = '',
+    fg = '#2E2B55',
+    bg = '#0D0F18'
   }
 }
 
