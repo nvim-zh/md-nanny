@@ -9,7 +9,7 @@ local M = {}
 -- syntax title
 function M.syntax_title(bufnr)
   local start_line, end_line = tools.create_query_scope(bufnr)
-  local titles = require("md-nanny.treesitter_utils.title_query").get_title_nodes_pos(bufnr, start_line,
+  local titles = require("md-nanny.element_query.title_query").get_title_nodes_pos(bufnr, start_line,
     end_line)
   for _, title in pairs(titles) do
     local s_row, s_col = title.scope:start()
@@ -21,7 +21,7 @@ end
 --- set title virt_text
 function M.set_extmark(bufnr, row, col, h)
   local opts = {
-    virt_text = { { h.symbol, h.highlight } },
+    virt_text = { { h.symbol, h.hl_group } },
     virt_text_pos = 'overlay'
   }
   vim.api.nvim_buf_set_extmark(bufnr, ns_id, row, col, opts)
@@ -31,6 +31,7 @@ end
 function M.start(v)
   if v then
     api.nvim_create_autocmd({ 'WinEnter', 'TextChanged', 'TextChangedI' }, {
+      pattern = { "*.md" },
       callback = function(opts)
         if opts.event == "TextChanged" or opts.event == 'TextChangedI' then
           local start_line, end_line = tools.create_query_scope(opts.buf)

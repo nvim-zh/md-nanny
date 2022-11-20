@@ -2,6 +2,8 @@ require('md-nanny.core.title').start(true)
 require('md-nanny.core.codeblock').setup(true)
 vim.o.conceallevel = 2
 require('md-nanny.core.link').setup(true)
+require('md-nanny.core.block').setup(true)
+require('md-nanny.core.break').setup(true)
 --
 ---------------
 -- local ns_id = vim.api.nvim_create_namespace("test")

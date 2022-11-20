@@ -1,5 +1,5 @@
 local q = require('vim.treesitter.query')
-local code_block_query = require('md-nanny.treesitter_utils.codeblock_query')
+local code_block_query = require('md-nanny.element_query.codeblock_query')
 local tools = require('md-nanny.utils.query')
 local mdorg = require('md-nanny.core.mdorg')
 local config = require('md-nanny.core.config')
@@ -35,7 +35,7 @@ function M.syntax_code_block_symbol(bufnr, node)
   local lang = q.get_node_text(node:child(1), bufnr)
 
   local opts = {
-    virt_text = { { hl.symbol.start .. " " .. lang .. symbol, hl.highlight.symbol } },
+    virt_text = { { hl.symbol.start .. " " .. lang .. symbol, hl.hl_group.symbol } },
     virt_text_pos = 'overlay'
   }
 
@@ -43,7 +43,7 @@ function M.syntax_code_block_symbol(bufnr, node)
   api.nvim_buf_set_extmark(bufnr, ns_id, start_row, start_col, opts)
 
   -- end line
-  opts.virt_text = { { hl.symbol.end_ .. " " .. symbol, hl.highlight.symbol } }
+  opts.virt_text = { { hl.symbol.end_ .. " " .. symbol, hl.hl_group.symbol } }
   api.nvim_buf_set_extmark(bufnr, ns_id, end_row - 1, end_col, opts)
 end
 
@@ -56,12 +56,12 @@ function M.syntax_code_block_background(bufnr, node)
   local end_row = node:end_()
   local text = string.rep(' ', fn.winwidth(fn.bufwinnr(bufnr)))
   local opts = {
-    virt_text = { { text, hl.highlight.code_block } },
+    virt_text = { { text, hl.hl_group.code_block } },
     hl_eol = true,
     virt_text_pos = 'overlay',
   }
   for i = start_row, end_row - 1 do
-    api.nvim_buf_add_highlight(bufnr, ns_id, hl.highlight.code_block, i, 0, -1)
+    api.nvim_buf_add_highlight(bufnr, ns_id, hl.hl_group.code_block, i, 0, -1)
     api.nvim_buf_set_extmark(bufnr, ns_id, i, fn.len(fn.getline(i + 1)), opts)
   end
 end
@@ -88,13 +88,14 @@ end
 function M.setup(status)
   if status then
     api.nvim_create_autocmd({ 'WinEnter', 'TextChanged', 'TextChangedI' }, {
+      pattern = { "*.md" },
       callback = function(opts)
         if opts.event == "TextChanged" or opts.event == 'TextChangedI' then
           local start_line, end_line = tools.create_query_scope(opts.buf)
           vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, start_line, end_line)
         end
         if opts.event == 'WinEnter' then
-          highlight.hl_code_block()
+          highlight.hl_util()
         end
         M.syntax_code_block(opts.buf)
       end

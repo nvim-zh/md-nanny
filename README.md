@@ -26,13 +26,14 @@ require('md-nanny')
 
 
 ## Todo
-  - [ ] add todo list
-  - [ ] codeblock border
-  - [ ] codeblock edit
-  - [ ] the flow chart
-  - [ ] The code block programming
-  - [ ] show image
-  - [ ] show link image
-  - [ ] mathematical formula to image show
-  - [ ] flow chat to image show
-  - [ ] syntax table
+
+- [ ] add todo list
+- [ ] codeblock border
+- [ ] codeblock edit
+- [ ] the flow chart
+- [ ] The code block programming
+- [ ] show image
+- [ ] show link image
+- [ ] mathematical formula to image show
+- [ ] flow chat to image show
+- [ ] syntax table

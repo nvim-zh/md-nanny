@@ -2,6 +2,14 @@ local M = {}
 local bg = vim.api.nvim_get_hl_by_name("Normal", true)["background"]
 M.filetype = 'markdown'
 
+-- 分割线
+M.Break = {
+  symbol = '─',
+  hl_group = "Break",
+  fg = '#6E6A86',
+  bg = bg
+}
+
 -- 代码块配置
 M.codeblock = {
   symbol = {
@@ -13,19 +21,20 @@ M.codeblock = {
   },
   code_block = {
     enable = true,
-    bg = '#111019',
+    bg = '#152329',
   },
-  highlight = {
+  hl_group = {
     symbol = 'codeblock_symbol',
     code_block = 'codeblock'
   }
 }
 
 -- link 参数渲染
-M.link = {
+M.list = {
   fg = "#16161E",
   bg = bg,
-  symbol = ''
+  symbol = '',
+  hl_group = 'md_list'
 }
 
 -- todo list
@@ -34,14 +43,24 @@ M.todolist = {
     match = '[=]',
     symbol = '□',
     fg = '#1AE51A',
-    bg = '#0D0F18'
+    bg = '#0D0F18',
+    hl_group = 'todolist_Undone'
   },
-  done = {
+  Done = {
     match = '[x]',
     symbol = '',
     fg = '#2E2B55',
-    bg = '#0D0F18'
+    bg = '#0D0F18',
+    hl_group = 'todolist_Done'
   }
+}
+
+-- block quote symbol
+M.block_quote_marker = {
+  symbol = '▌',
+  fg = '#434C5E',
+  bg = bg,
+  hl_group = "block_quote_marker"
 }
 
 -- 标题配置
@@ -51,37 +70,37 @@ M.title = {
     fg = '#343A4B',
     bg = bg,
     symbol = '○',
-    highlight = 'h1_hi'
+    hl_group = 'h1_hi'
   },
   atx_h2_marker = {
     fg = '#343A5B',
     bg = bg,
     symbol = ' ○ ',
-    highlight = 'h2_hi',
+    hl_group = 'h2_hi',
   },
   atx_h3_marker = {
     fg = '#343A65',
     bg = bg,
     symbol = '  ○ ',
-    highlight = 'h3_hi'
+    hl_group = 'h3_hi'
   },
   atx_h4_marker = {
     fg = '#343A70',
     bg = bg,
     symbol = '   ○ ',
-    highlight = 'h4_hi'
+    hl_group = 'h4_hi'
   },
   atx_h5_marker = {
     fg = '#343A85',
     bg = bg,
     symbol = '    ○ ',
-    highlight = 'h5_hi'
+    hl_group = 'h5_hi'
   },
   atx_h6_marker = {
     fg = '#343A85',
     bg = bg,
     symbol = '     ○ ',
-    highlight = 'h6_hi'
+    hl_group = 'h6_hi'
   }
 }
 
