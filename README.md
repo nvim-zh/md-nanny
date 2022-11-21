@@ -74,6 +74,8 @@ require('md-nanny')
 
 - [x] add todo list
 - [x] codeblock edit
+- [ ] link jump url
+- [ ] link markdown url
 - [ ] the flow chart
 - [ ] The code block programming
 - [ ] show image

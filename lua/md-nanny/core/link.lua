@@ -25,6 +25,10 @@ function M.syntax_link_todo(bufnr)
   end
 end
 
+--- 链接跳转
+function M.jump_link(bufnr)
+end
+
 --- 替换 list 符号
 ---@param bufnr
 function M.syntax_link_minus(bufnr)
