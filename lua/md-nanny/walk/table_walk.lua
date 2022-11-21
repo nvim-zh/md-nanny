@@ -57,12 +57,40 @@ end
 ---@return : max size
 function M.get_table_max_size_row(col, data)
   local max = string.len(data.heading[col])
-  for v in pairs(data.data) do
-    if string.len(v[col]) > max then
-      max = string.len(v[col])
+  for i = 1, #data.data do
+    local da = data.data[i]
+    if da[col] ~= nil then
+      local size = string.len(da[col])
+      if max < size then
+        max = size
+      end
     end
   end
   return max
+end
+
+--- 对列中的str按对齐方式格式化
+---@param str
+---@param left
+---@param right
+---@param maxlen
+---@return
+function M.format_table_row(str, left, right, maxlen)
+  local text
+  local len = string.len(str)
+  if left and right then
+    -- 居中显示
+    local left_len = math.floor((maxlen - len) / 2) + 1
+    local right_len = math.ceil((maxlen - len) / 2) + 1
+    text = string.rep(" ", left_len) .. str .. string.rep(" ", right_len)
+  elseif right then
+    -- 右对齐
+    text = string.rep(" ", maxlen - len + 1) .. str .. " "
+  else
+    -- 左对齐
+    text = " " .. str .. string.rep(" ", maxlen - len + 1)
+  end
+  return text
 end
 
 return M

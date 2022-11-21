@@ -37,9 +37,7 @@ function M.start(v)
           local start_line, end_line = tools.create_query_scope(opts.buf)
           vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, start_line, end_line)
         end
-        if opts.event == 'WinEnter' then
-          highlight.hl_title()
-        end
+        highlight.hl_title()
         M.syntax_title(opts.buf)
       end
     })
