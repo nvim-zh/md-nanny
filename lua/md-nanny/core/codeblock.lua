@@ -4,6 +4,7 @@ local tools = require('md-nanny.utils.query')
 local mdorg = require('md-nanny.core.mdorg')
 local config = require('md-nanny.core.config')
 local highlight = require('md-nanny.core.highlight')
+local dot_image = require('md-nanny.utils.show_image')
 local fn = vim.fn
 local api = vim.api
 local ns_id = vim.api.nvim_create_namespace('md-codeblaock')
@@ -18,7 +19,24 @@ function M.syntax_code_block(bufnr)
   for _, code_block in pairs(code_blocks) do
     M.syntax_code_block_symbol(bufnr, code_block)
     M.syntax_code_block_background(bufnr, code_block)
+    --if q.get_node_text(code_block:child(1), bufnr) == 'dot' then
+    --  M.syntax_code_dot_imger(bufnr, code_block)
+    --end
   end
+end
+
+--- 渲染流程图图片
+---@param bufnr
+---@param node
+function M.syntax_code_dot_imger(bufnr, node)
+  local dot_string = tostring(q.get_node_text(node:child(3), bufnr))
+  if not fn.has("python3") then
+    vim.notify("no found python3")
+    return
+  end
+  --M.create_dot_image(dot_string)
+  local row, col = node:start()
+  dot_image.create_dot_image(dot_string, row, col, bufnr, {})
 end
 
 --- 设置代码块符号

@@ -28,7 +28,7 @@ function M.setup(status)
           local start_line, end_line = tools.create_query_scope(opts.buf)
           vim.api.nvim_buf_clear_namespace(opts.buf, ns_id, start_line, end_line)
         end
-          highlight.hl_util()
+        highlight.hl_util()
         M.syntax_block_quote(opts.buf)
       end
     })
